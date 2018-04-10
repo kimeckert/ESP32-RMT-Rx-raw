@@ -6,7 +6,7 @@ No IR protocol decode is implemented.
 
 Why multiple channels? Most of my remotes use the standard 38KHz IR carrier frequency. One uses 56 KHz (*%#^!). I connected a 38KHz IR receiver to one GPIO and a 56KHz receiver to another GPIO. My IR sniffer now can receive and display raw codes from either frequency.
 
-The RMT receive input is from an IR receiver sensor.
+The RMT receive input is from an IR receiver sensor. Make sure that the voltage range of your sensor is compatible with the ESP32. My sensors can use VCC from 2.7 to 5.5 volts.
 * The output of the IR sensor that drives the RMT receiver input is high (logic level 1) when the IR signal is idle (no IR pulses are being transmitted).
 * The output of the IR sensor is driven low when the sensor detects IR pulses.  The output of the IR sensor stays low as long as the IR sensor continues to detect IR pulses.
 
