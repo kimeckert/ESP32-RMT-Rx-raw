@@ -1,6 +1,6 @@
 # ESP32-RMT-Rx-raw
 ESP32 RMT application, displaying raw RMT durations from multiple receive channels.
-Receive data from all enabled channels are simply displayed on the monitor.
+Duration data from all enabled channels are simply displayed on the monitor.
 This requires that the ESP32 be connected to the host computer with a USB cable.
 No IR protocol decode is implemented.
 
