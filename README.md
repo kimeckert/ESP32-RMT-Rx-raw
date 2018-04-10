@@ -1,18 +1,23 @@
 # ESP32-RMT-Rx-raw
-RMT application, displaying raw RMT receive data
+ESP32 RMT application, displaying raw RMT durations from multiple receive channels.
+Receive data from all enabled channels are simply displayed on the monitor.
+This requires that the ESP32 be connected to the host computer with a USB cable.
+No IR protocol decode is implemented.
 
-Receive data is simply displayed on the monitor.
+The RMT receive input is from an IR receiver sensor
 * The output of the IR sensor that drives the RMT receiver input is high (logic level 1) when the IR signal is idle.
-* The output of the IR sensor is driven low when the sensor detects IR pulses.  The output of the IR sensor stays low while as long as the IR sensor continues to detect IR pulses.
+* The output of the IR sensor is driven low when the sensor detects IR pulses.  The output of the IR sensor stays low as long as the IR sensor continues to detect IR pulses.
 
-Data is compatible with the ESP32-RMT-server application, documented at https://github.com/kimeckert/ESP32-RMT-server.
-* RMT transmit data=1 results in carrier modulated IR pulses on the output of the ESP32 RMT.
-* RMT transmit data=0 results in no IR signal transmitted from the RMT.
+The received data is formatted to be compatible with the ESP32-RMT-server transmit application, documented at https://github.com/kimeckert/ESP32-RMT-server.
+* RMT transmit data=1 results in carrier modulated IR pulses on the output of the ESP32 RMT. The transmit application uses positive integers to denote modulated IR output durations.
+* RMT transmit data=0 results in no IR signal transmitted from the RMT.  The transmit application uses negative integers to denote idle (no modulation) IR output durations.
 
 Due to the logic inversion between this application's receive data and the transmitted data in ESP32-RMT-server, this application inverts the logic sense of the received IR data.
+* Receipt of active IR pulses to this application causes a low logic level on the output of the IR sensor and on the RMT receiver input.
+* The duration of a low logic level on the input to the RMT reciever is reported by this application as a positive integer.  When used as a control input to the ESP32-RMT-server transmit application, the positive integer creates the transmission of IR pulses from the transmit RMT.
 
 This application has been tested on an Adafruit ESP32 Feather board.
-The aplication flashes the on-board visible LED when it responds to received RMT data.
+The application flashes the on-board visible LED and reports mark and space durations when responding to received RMT data.
 
 An example of received data. An RMT item consists of two durations.
 <pre>  Received 34 items
