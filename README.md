@@ -5,7 +5,7 @@ This requires that the ESP32 be connected to the host computer with a USB cable.
 No IR protocol decode is implemented.
 
 The RMT receive input is from an IR receiver sensor.
-* The output of the IR sensor that drives the RMT receiver input is high (logic level 1) when the IR signal is idle.
+* The output of the IR sensor that drives the RMT receiver input is high (logic level 1) when the IR signal is idle (no IR pulses are being transmitted).
 * The output of the IR sensor is driven low when the sensor detects IR pulses.  The output of the IR sensor stays low as long as the IR sensor continues to detect IR pulses.
 
 The received data is formatted to be compatible with the ESP32-RMT-server transmit application, documented at https://github.com/kimeckert/ESP32-RMT-server.
