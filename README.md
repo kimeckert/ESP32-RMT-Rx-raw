@@ -10,7 +10,7 @@ The RMT receive input is from an IR receiver sensor. Make sure that the voltage 
 * The output of the IR sensor that drives the RMT receiver input is high (logic level 1) when the IR signal is idle (no IR pulses are being transmitted).
 * The output of the IR sensor is driven low when the sensor detects IR pulses.  The output of the IR sensor stays low as long as the IR sensor continues to detect IR pulses.
 
-The received data is formatted to be compatible with the ESP32-RMT-server transmit application, documented at https://github.com/kimeckert/ESP32-RMT-server.
+This application formats the receive data so it is compatible with the ESP32-RMT-server transmit application, documented at https://github.com/kimeckert/ESP32-RMT-server.
 * Active IR pulses beamed to the IR sensor cause the output of the sensor to go low. The RMT receives this as a logic zero. This application reports the duration of the low level as a positive integer. The ESP32-RMT-server transmit application decodes the positive integer and creates IR output pulses of the same duration.
 * Durations without active IR pulses cause the output of the sensor to go high. The RMT receives this as a logic one. This application reports the duration of the high level as a negative integer. The ESP32-RMT-server transmit application decodes the negative integer and creates an idle (no IR pulses) output of the same duration.
 
