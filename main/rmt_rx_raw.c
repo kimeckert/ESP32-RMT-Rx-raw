@@ -92,20 +92,23 @@ static void rmt_example_nec_rx_task() {
     size_t rx_size = 0;
     rmt_item32_t* items = NULL;
 	
-    // define ringbuffer handles
-    RingbufHandle_t rb[num_channels];
+    // define ringbuffer handle
+    RingbufHandle_t rb;
 	
-    // start receiving IR data, initialize ringbuffer handles
+    // start receiving IR data
     for ( c=0; c<num_channels; c++ ) {
 		rmt_rx_start(rx_inputs[c].channel, 1);
-		rmt_get_ringbuf_handle(rx_inputs[c].channel, &rb[c]);
 	}
     
     // loop forever
     while (1) {
 		// check each receive channel
 		for ( c=0; c<num_channels; c++ ) {
-			items = (rmt_item32_t*) xRingbufferReceive(rb[c], &rx_size, 10);
+			// get the ring buffer handle
+			rmt_get_ringbuf_handle(rx_inputs[c].channel, &rb);
+			
+			// get items, if there are any
+			items = (rmt_item32_t*) xRingbufferReceive(rb, &rx_size, 10);
 			if(items) {
 				// turn on visible led
 				gpio_set_level(LED_BUILTIN, 1);
@@ -123,7 +126,7 @@ static void rmt_example_nec_rx_task() {
 				gpio_set_level(LED_BUILTIN, 0);
 				
 				// free up data space
-				vRingbufferReturnItem(rb[c], (void*) items);
+				vRingbufferReturnItem(rb, (void*) items);
 			}
 		}
 		// delay 100 milliseconds. No need to overheat the processor
