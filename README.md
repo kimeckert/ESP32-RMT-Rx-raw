@@ -13,6 +13,7 @@ The RMT receive input is from an IR receiver sensor. Make sure that the voltage 
 This application formats the receive data so it is compatible with the ESP32-RMT-server transmit application, documented at https://github.com/kimeckert/ESP32-RMT-server.
 * Active IR pulses beamed to the IR sensor cause the output of the sensor to go low. The RMT receives this as a logic zero. This application reports the duration of the low level as a positive integer. The ESP32-RMT-server transmit application decodes the positive integer and creates IR output pulses of the same duration.
 * Durations without active IR pulses cause the output of the sensor to go high. The RMT receives this as a logic one. This application reports the duration of the high level as a negative integer. The ESP32-RMT-server transmit application decodes the negative integer and creates an idle (no IR pulses) output of the same duration.
+* When the duration of either active IR pulses or no active IR pulses exceeds the RMT value RMT_IDLE_THRES_CHn channel clock ticks, the RMT will identify this as the end of an IR transmission sequence. The RMT will then append a zero duration to the data and return to the idle state.  This application reports the zero value as the final value in the durations.  It does not represent a duration of zero, it represents the end of the IR transmission sequence.
 
 This application has been tested on an Adafruit ESP32 Feather board.
 The application flashes the on-board visible LED and reports mark and space durations when responding to received RMT data.
