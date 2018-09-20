@@ -18,7 +18,8 @@ This application formats the receive data so it is compatible with the ESP32-RMT
 This application has been tested on an Adafruit ESP32 Feather board.
 The application flashes the on-board visible LED and reports mark and space durations when responding to received RMT data.
 
-An example of received data. A single RMT item consists of two durations.<br />
+## Examples of received data.
+A single RMT item consists of two durations.<br />
 
   Received 34 items  
   
